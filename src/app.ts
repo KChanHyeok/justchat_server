@@ -1,8 +1,12 @@
 import express from 'express';
-import { auth } from './routes';
+import cors from 'cors';
+import ApiServer from './server/ApiServer';
 
-const app = express();
+const app: any = express();
 
-app.listen(2000, () => {
-    console.log('Server is running on port 3000');
-});
+app.use(cors({ origin: '*'}))
+
+new ApiServer(app)
+
+
+
