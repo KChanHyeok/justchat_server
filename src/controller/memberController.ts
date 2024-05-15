@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { Register } from "../service/memberService" 
+import { Register, Login } from "../service/memberService" 
 
 export const register = async (req:Request, res: Response) => {
     try {
@@ -8,3 +8,11 @@ export const register = async (req:Request, res: Response) => {
         throw err
     }
 }
+
+export const login = async (req:Request, res: Response) => {
+    try {
+        return res.send(await Login(req.body))
+    }catch(err){
+        throw err
+    }
+ }

@@ -1,18 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es6",                                  
-    "module": "commonjs",                            
-    "outDir": "dist",
+    "target": "ES6",
+    "module": "commonjs",
+    "outDir": "./dist",
     "rootDir": "./src",
-    "strict": true,                                  
-    "moduleResolution": "node",
+    "strict": true,
     "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
     "jsx": "react",
+    "baseUrl": "./",
     "paths": {
-      "@src/*": ["./src/*"],
-      "@util/*":["./src/util/*"],
-    },                                 
-      },
-      "include": ["src/**/*"],
-      "exclude": ["node_modules"]
+      "@src/*": ["src/*"],
+      "@util/*": ["src/util/*"]
+    }
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules"]
 }
