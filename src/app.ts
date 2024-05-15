@@ -1,8 +1,10 @@
 import express from 'express';
 import cors from 'cors';
-import ApiServer from './server/ApiServer';
 import http from 'http';
+import { run } from '../src/util/db';
+import ApiServer from './server/ApiServer';
 import SocketServer from './server/SocketServer';
+
 
 const app: any = express();
 app.use(cors({ origin: '*'}))
@@ -16,6 +18,7 @@ server.listen(3380,()=> {
     console.log('Server is running on port 3380')
 })
 
+run()
 
 
 
