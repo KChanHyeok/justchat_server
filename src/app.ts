@@ -2,8 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import http from 'http';
 import { run } from './util/db';
-import ApiServer from './server/ApiServer';
-import SocketServer from './server/SocketServer';
+import ApiServer from '../src/server/ApiServer';
+import SocketServer from '../src/server/SocketServer';
 
 const app: any = express();
 app.use(cors({ origin: '*'}))
