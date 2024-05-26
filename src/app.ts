@@ -17,7 +17,7 @@ server.listen(3380,()=> {
     console.log('Server is running on port 3380')
 })
 
-run()
+ run()
 
 
 

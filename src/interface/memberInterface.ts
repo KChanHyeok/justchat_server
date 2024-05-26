@@ -1,6 +1,6 @@
-export interface register {
+export interface IRegister {
     member_id : string;
-    member_pwd : string;
+    member_pwd : string | null;
     member_name : string;
-    member_nickname : string;
+    nick_name : string;
 }

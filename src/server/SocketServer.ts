@@ -13,7 +13,7 @@ export default class SocketServer {
         }
 
         start () {
-            this.wss.on('connection', (ws: WebSocket) => {
+            this.wss.on('connection', (ws: WebSocket, params: string) => {
                 console.log('new connection')
                 console.log(this.wss.clients)
                 // this.clinets.push(ws.terminate())
