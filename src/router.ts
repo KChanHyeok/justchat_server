@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 router.get('/chat/list', selectCharRoom)
-router.post('/chat/create', createChatRoom)
+router.post('/chat/insert', createChatRoom)
 router.post('/register', register)
 router.post('/login', login)
 

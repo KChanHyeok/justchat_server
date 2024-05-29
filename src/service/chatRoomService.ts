@@ -4,14 +4,13 @@ import { client } from "../util/db"
 export const SelectChatRoom = async (body:any) => {
     try {
         const bdo = await client.db('just_chat')
-        let {member_id} = body;
+        let {member_id, chat_name} = body;
         console.log(member_id)
-        const channer_no_list = await bdo.collection('chat_room').find({member_id: member_id}).toArray()
+        const channer_no_list = await bdo.collection('chat_room_member').find({member_id: member_id}).toArray()
         
-        console.log(channer_no_list)
-        return {}
-        // const chat_room = await bdo.collection('chat_room').find(channer_no_list)
-        // console.log(chat_room)
+        console.log(channer_no_list.map(d=> d.channer_no))
+        // const chat_room = await bdo.collection('chat_room').find(channer_no_list).toArray()
+        // console.log(chat_room)        // return {success: true, message: '해당 회원의 채팅방 리스트', data: chat_room}
     } catch(err){
         throw err
     }
@@ -21,7 +20,7 @@ export const CreateChatRoom = async (body: any) => {
     try  {
         const bdo = await client.db('just_chat')
         let { member_id, channer_name ,connect_key, memo, reg_date } = body
-        const num = new Date()
+        const num = Math.random()
         const params = {
             channer_no: num,
             channer_name,
