@@ -1,21 +1,58 @@
+// {
+//   "compilerOptions": {
+//     "target": "ESNext",
+//     "lib": ["dom", "DOM.Iterable","ESNext"],
+//     "allowJs": true,
+//     "skipLibCheck": true,
+//     "sourceMap": true,
+//     "module": "ES2015",
+//     "moduleResolution": "node",
+//     "typeRoots": ["./@types","./node_modules/@types"],
+//     "outDir": "dist",
+//     "rootDir": "src",
+//     "types": ["node"],
+//     "strict": true,
+//     "esModuleInterop": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "allowSyntheticDefaultImports": true,
+//     "forceConsistentCasingInFileNames": true,
+//     "jsx": "react-jsx",
+//     "baseUrl": "./",
+//     "paths": {
+//       "@/*": ["src/*"],
+//       "@src/*": ["src/*"],
+//       "@util/*": ["src/util/*"],
+//       "@server/*": ["src/server/*"],
+//       "@controller/*": ["src/controller/*"],
+//       "@service/*": ["src/service/*"]
+//     }
+//   },
+//   "include": ["src/**/*.ts"],
+//   "exclude": ["node_modules"]
+// }
+
 {
   "compilerOptions": {
     "target": "ES6",
-    "module": "commonjs",
+    "module": "CommonJS",
+    "moduleResolution": "Node",
+    "removeComments": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "strict": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "declaration": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
-    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
+      "@/*": ["src/*"],
       "@src/*": ["src/*"],
-      "@util/*": ["src/util/*"]
+      "@util/*": ["src/util/*"],
+      "@server/*": ["src/server/*"],
+      "@controller/*": ["src/controller/*"],
+      "@service/*": ["src/service/*"]
     }
   },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules"]
+  "exclude": ["dist", "node_modules"]
 }

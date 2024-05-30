@@ -1,6 +1,6 @@
 import express from 'express';
-import { register, login } from '../src/controller/memberController';
-import { createChatRoom, selectCharRoom } from '../src/controller/chatRoomController';
+import { register, login } from '@controller/memberController';
+import { createChatRoom, selectCharRoom } from '@controller/chatRoomController';
 
 const router = express.Router();
 
