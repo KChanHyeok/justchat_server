@@ -4,8 +4,9 @@ import dotenv from 'dotenv';
 
 dotenv.config({path: path.join(__dirname, '../../.env')})
 
-export const encrypt = (payload: string) => {
+export const encrypt = (payload: string | null) => {
     try {
+        if(!payload) return null
         const secret_key = process.env.CRYPTO_SECRET_KEY;
         if(!secret_key) {
             console.log("No Secret Key");

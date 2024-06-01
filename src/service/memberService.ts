@@ -1,15 +1,14 @@
+import { ILogin, IMember, IRegister } from '@interfaces/memberInterface';
+import { decrypt, encrypt } from '@util/crypto';
+import {client} from '@util/db';
 
-import swaggerJSDoc from 'swagger-jsdoc';
-import { decrypt, encrypt } from '../util/crypto';
-import {client} from '../util/db';
-
-export const Register = async (body: any) => {
+export const Register = async (body: IRegister) => {
     try {
         const bdo = await client.db('just_chat')
         let {member_id, member_pwd, member_name, nick_name, profile_file  } = body
         const user = await bdo.collection('member').findOne({member_id})
         if(user) return {success: false, message: '이미 가입한 회원입니다'}
-        member_pwd = await encrypt(member_pwd)
+        member_pwd = encrypt(member_pwd)
         if(member_pwd===null) return {success: false, message: '회원가입실패 key가 존재하지 않습니다'}
         
         const params = {
@@ -28,7 +27,7 @@ export const Register = async (body: any) => {
     }
 }
 
-export const Login = async (body: any) => {
+export const Login = async (body: ILogin) => {
     try {
         const bdo = await client.db('just_chat')
         let {member_id, member_pwd} = body
@@ -48,17 +47,19 @@ export const Login = async (body: any) => {
     }
 }
 
-export const MemberList = async (body: any) => {
+export const MemberList = async (body: IMember) => {
     try {
-        const {keyword} = body
+        const {keyword, page_current, per_page} = body
         const bdo =  client.db('just_chat')
+        const offset = (page_current-1) * per_page
         const member = await bdo.collection('member').find({member_id: {$regex: keyword}}, {projection:{
             _id:0,
             member_id: 1,
             nick_name: 1,
             member_name: 1,
-        }}).toArray()
-        return {success: true, message: '회원리스트', data: member}
+        }}).limit(per_page).skip(offset).toArray()
+        const total_count = (await bdo.collection('member').find({member_id: {$regex: keyword}}).toArray()).length
+        return {success: true, message: '회원리스트', data:{ list: member, total_count }}
     } catch(err) {
         throw err;
     }

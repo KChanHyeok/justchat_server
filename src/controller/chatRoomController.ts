@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import {CreateChatRoom, SelectChatRoom} from '../service/chatRoomService'
 
-export const selectCharRoom = async (req: Request, res: Response) => {
+export const selectChatRoom = async (req: Request, res: Response) => {
     try {
         return res.send(await SelectChatRoom(req.body))
     }catch(err){

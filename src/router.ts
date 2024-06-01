@@ -1,7 +1,7 @@
 import express from 'express';
 import multer from 'multer'; 
 import { register, login, memberList } from '@controller/memberController';
-import { createChatRoom, selectCharRoom } from '@controller/chatRoomController';
+import { createChatRoom, selectChatRoom } from '@controller/chatRoomController';
 import { fileController } from '@controller/fileController';
 import { fileService } from '@service/fileService';
 
@@ -11,7 +11,7 @@ const router = express.Router();
 
 const controller = new fileController(new fileService);
 
-router.get('/chat/list', selectCharRoom)
+router.get('/chat/list', selectChatRoom)
 router.get('/member/list', memberList)
 router.post('/file/upload', upload.single('file'), controller.fileUpload)
 router.post('/file/download', controller.fileDownload)

@@ -47,6 +47,10 @@ const options = {
                                     "type": "string",
                                     "example": "kchan"
                                 },
+                                "profile_file": {
+                                   "type": "string",
+                                   "example": "key"
+                                }
                             },
                             "required": ["member_id", "member_pwd", "member_name",]
                         }

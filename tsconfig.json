@@ -19,7 +19,8 @@
       "@util/*": ["src/util/*"],
       "@server/*": ["src/server/*"],
       "@controller/*": ["src/controller/*"],
-      "@service/*": ["src/service/*"]
+      "@service/*": ["src/service/*"],
+      "@interfaces/*": ["src/interface/*"]
     }
   },
   "exclude": ["dist", "node_modules"]
