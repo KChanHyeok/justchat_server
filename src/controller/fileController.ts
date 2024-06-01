@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { fileService } from "@/service/fileService";
+import { fileService } from "@service/fileService";
 
 export class fileController {
     constructor(private readonly fileService: fileService){}

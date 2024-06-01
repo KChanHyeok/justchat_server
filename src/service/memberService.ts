@@ -6,7 +6,7 @@ import {client} from '../util/db';
 export const Register = async (body: any) => {
     try {
         const bdo = await client.db('just_chat')
-        let {member_id, member_pwd, member_name, nick_name } = body
+        let {member_id, member_pwd, member_name, nick_name, profile_file  } = body
         const user = await bdo.collection('member').findOne({member_id})
         if(user) return {success: false, message: '이미 가입한 회원입니다'}
         member_pwd = await encrypt(member_pwd)
@@ -17,6 +17,8 @@ export const Register = async (body: any) => {
             member_pwd,
             member_name,
             nick_name,
+            profile_file,
+            del_yn: 'n',
             reg_date: new Date()
         }
         await bdo.collection('member').insertOne(params)
@@ -42,6 +44,22 @@ export const Login = async (body: any) => {
         return {success: true, message: '로그인성공', data}
         
     }catch(err){
+        throw err;
+    }
+}
+
+export const MemberList = async (body: any) => {
+    try {
+        const {keyword} = body
+        const bdo =  client.db('just_chat')
+        const member = await bdo.collection('member').find({member_id: {$regex: keyword}}, {projection:{
+            _id:0,
+            member_id: 1,
+            nick_name: 1,
+            member_name: 1,
+        }}).toArray()
+        return {success: true, message: '회원리스트', data: member}
+    } catch(err) {
         throw err;
     }
 }
