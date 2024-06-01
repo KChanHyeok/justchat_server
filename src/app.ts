@@ -13,7 +13,7 @@ const server = http.createServer(app);
 new ApiServer(app);
 const socket = new SocketServer(server)
 socket.start();
-server.listen(80,()=> {
+server.listen(3380,()=> {
     console.log('Server is running on port 80')
 })
 
