@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 export const SelectChatRoom = async (body: ISelectChatRoom) => {
     try {
-        const bdo = await client.db('just_chat')
+        const bdo = client.db('just_chat')
         let {member_id, channer_name, page_current, per_page} = body;
         const channer_no_list = await bdo.collection('chat_room_member').find({member_id: member_id}).toArray()
         const list = channer_no_list.map(d=> d.channer_no) 
@@ -27,7 +27,7 @@ export const SelectChatRoom = async (body: ISelectChatRoom) => {
 export const CreateChatRoom = async (body: ICreateChatRoom) => {
     try  {
         const chat_member = []
-        const bdo = await client.db('just_chat')
+        const bdo = client.db('just_chat')
         let { member_id, channer_name ,connect_key, invite_member } = body
         if(invite_member.length< 1) return {success: false, message: '채팅방에 초대한 인원이 없습니다'}
         const num = nanoid().toString()
