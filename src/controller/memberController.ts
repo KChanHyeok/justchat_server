@@ -17,7 +17,7 @@ export const login = async (req:Request, res: Response) => {
     }
  }
 
- export const memberList = async (req:Request, res: Response) => { 
+ export const memberList = async (req:any, res: Response) => { 
     try {
         return res.send(await MemberList(req.body))
     } catch(err) {
