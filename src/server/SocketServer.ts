@@ -13,15 +13,21 @@ export default class SocketServer {
         }
 
         start () {
-            this.wss.on('connection', (ws: WebSocket, params: string) => {
+            this.wss.on('connection', (ws: WebSocket, req: any) => {
                 console.log('new connection')
-                console.log(this.wss.clients)
+                // console.log(req.headers)
+                const {member_id} = req.headers
+                this.clinets.push(member_id)
+                console.log(`현재 접속중인 인원 ${this.clinets.length}명`)
                 // this.clinets.push(ws.terminate())
                 ws.on('message', (message: any) => {
                     console.log('received: %s', message)
                 })
                 ws.on('close', () => {
                     console.log('connection closed')
+                    const idx = this.clinets.findIndex((clinet: any) => clinet.id === member_id)
+                    this.clinets.splice(idx, 1)
+                    console.log(`현재 접속중인 인원 ${this.clinets.length}명`)
                 })
             })
         }
