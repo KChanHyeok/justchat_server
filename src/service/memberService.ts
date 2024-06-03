@@ -73,7 +73,7 @@ export const MemberList = async (body: IMember) => {
             profile_file:1,
             nick_name: 1,
             member_name: 1,
-        }}).limit(per_page).skip(offset).toArray()
+        }}).limit(Number(per_page)).skip(offset).toArray()
         const total_count = (await bdo.collection('member').find({member_id: {$regex: keyword}}).toArray()).length
         return {success: true, message: '회원리스트', data:{ list: member, total_count }}
     } catch(err) {

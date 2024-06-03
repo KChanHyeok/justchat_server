@@ -16,7 +16,7 @@ export const SelectChatRoom = async (body: ISelectChatRoom) => {
             channer_name: 1,
             member_id: 1,
             memo: 1,
-        }}).limit(per_page).skip(offset).toArray()
+        }}).limit(Number(per_page)).skip(offset).toArray()
         const total_count = (await bdo.collection('chat_room').find({channer_no: {$in:list}}).toArray()).length
         return {success: true, message: '해당 회원의 채팅방 리스트', data: {list:chat_room, total_count}}
     } catch(err){
