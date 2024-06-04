@@ -10,11 +10,11 @@ app.use(cors({ origin: '*'}))
 const server = http.createServer(app);
 
 
-new ApiServer(app);
+ApiServer(app);
 const socket = new SocketServer(server)
 socket.start();
-server.listen(3380,()=> {
-    console.log('Server is running on port 80')
+server.listen(process.env.PORT || 3380,()=> {
+    console.log('Server is running on port 3380')
 })
 
  run()

@@ -21,7 +21,7 @@ export default class SocketServer {
                 console.log(`현재 접속중인 인원 ${this.clinets.length}명`)
                 // this.clinets.push(ws.terminate())
                 ws.on('message', (message: any) => {
-                    console.log('received: %s', message)
+                    console.log(`${member_id} - ${message}`)
                 })
                 ws.on('close', () => {
                     console.log('connection closed')
