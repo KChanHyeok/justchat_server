@@ -3,7 +3,8 @@ import {CreateChatRoom, SelectChatRoom} from '../service/chatRoomService'
 
 export const selectChatRoom = async (req: any, res: Response) => {
     try {
-        return res.send(await SelectChatRoom(req.query))
+        const result = await SelectChatRoom(req.query)
+        return res.send(result)
     }catch(err){
         throw err;
     }
@@ -11,7 +12,8 @@ export const selectChatRoom = async (req: any, res: Response) => {
 
 export const createChatRoom = async (req:Request, res:Response) => {
     try {
-        return res.send(await CreateChatRoom(req.body))
+        const result = await CreateChatRoom(req.body)
+        return res.send(result)
     }catch(err){
         throw err
     }

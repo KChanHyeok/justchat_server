@@ -6,7 +6,8 @@ export class fileController {
     
     fileUpload = async (req: any, res: Response) => {
         try { 
-            return res.send(await this.fileService.FileUpload(req.file) )
+            const result = await this.fileService.FileUpload(req.file)
+            return res.send(result)
         }catch(err){
             throw err;
         }
@@ -14,7 +15,8 @@ export class fileController {
     
      fileDownload = async (req:Request, res:Response) => {
         try {
-            return res.send(await this.fileService.FileDownload(req.body))
+            const result = await this.fileService.FileDownload(req.body)
+            return res.send(result)
         }catch(err){
             throw err
         }

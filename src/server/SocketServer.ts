@@ -15,10 +15,8 @@ export default class SocketServer {
         start () {
             this.wss.on('connection', (ws: WebSocket, req: any) => {
                 console.log('new connection')
-                // console.log(req.headers)
                 const {member_id} = req.headers
                 this.clinets.push(member_id)
-                console.log(`현재 접속중인 인원 ${this.clinets.length}명`)
                 // this.clinets.push(ws.terminate())
                 ws.on('message', (message: any) => {
                     console.log(`${member_id} - ${message}`)
