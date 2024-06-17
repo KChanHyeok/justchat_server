@@ -14,12 +14,23 @@ export default class SocketServer {
 
         start () {
             this.wss.on('connection', (ws: WebSocket, req: any) => {
-                console.log('new connection')
-                const {member_id} = req.headers
-                this.clinets.push(member_id)
+                const {member_id, channer_no} = req.headers
+                this.clinets.push({ws, member_id, channer_no})
                 // this.clinets.push(ws.terminate())
                 ws.on('message', (message: any) => {
-                    console.log(`${member_id} - ${message}`)
+                    this.clinets.map(((client:any)=>{
+                        if(client.channer_no === channer_no){
+                            console.log(req.headers)
+                            const msg:any = JSON.parse(message)
+                            if(member_id){
+                                msg.member_id = member_id
+                            }else {
+                                // msg.member_id = req.headers.cookie.member_id
+                            }
+                            console.log(JSON.stringify(msg))
+                            client.ws.send(JSON.stringify(msg), (err:any)=> err &&console.log(err))
+                        }
+                    }))
                 })
                 ws.on('close', () => {
                     console.log('connection closed')
