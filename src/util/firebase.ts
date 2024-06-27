@@ -4,17 +4,21 @@ import { initializeApp } from "firebase/app";
 import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
-
+import path from 'path'
+import dotenv from 'dotenv';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+
+dotenv.config({path: path.join(__dirname, '../../.env')})
+
 const firebaseConfig = {
-  apiKey: "AIzaSyBnXMcNvaIKYYMjB0DyF7x2NGTYOW7-kjw",
-  authDomain: "just-chat-d0102.firebaseapp.com",
-  projectId: "just-chat-d0102",
-  storageBucket: "just-chat-d0102.appspot.com",
-  messagingSenderId: "1005715078356",
-  appId: "1:1005715078356:web:021e36c6b78ba14f560f41",
-  measurementId: "G-W2QDYREB8Y"
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
 };
 
 // Initialize Firebase
