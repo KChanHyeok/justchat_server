@@ -22,5 +22,6 @@ const run = async() => {
     } 
 }
 
+const clietDB = client.db('just_chat')
 
-export { client, run}
+export { client, run, clietDB}

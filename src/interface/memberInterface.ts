@@ -16,3 +16,9 @@ export interface IMember {
     page_current: number;
     per_page: number;
 }
+
+export interface IUpdateMember {
+    member_id: string;
+    nick_name: string;
+    profile_file: string;
+}

@@ -1,15 +1,14 @@
 import {  ICreateChatRoom, ISelectChatRoom } from "@interfaces/chatRoomInterface";
-import { client } from "@util/db"
+import { clietDB } from "@util/db"
 import { nanoid } from "nanoid";
 
 export const SelectChatRoom = async (body: ISelectChatRoom) => {
     try {
-        const bdo = client.db('just_chat')
         let {member_id, channer_name, page_current, per_page} = body;
-        const channer_no_list = await bdo.collection('chat_room_member').find({member_id: member_id}).toArray()
+        const channer_no_list = await clietDB.collection('chat_room_member').find({member_id: member_id}).toArray()
         const list = channer_no_list.map(d=> d.channer_no) 
         const offset = (page_current-1) * per_page
-        const chat_room = await bdo.collection('chat_room').find({channer_no: {$in:list}},
+        const chat_room = await clietDB.collection('chat_room').find({channer_no: {$in:list}},
             {projection:{
             _id:0,
             channer_no: 1,
@@ -17,7 +16,7 @@ export const SelectChatRoom = async (body: ISelectChatRoom) => {
             member_id: 1,
             memo: 1,
         }}).limit(Number(per_page)).skip(offset).toArray()
-        const total_count = (await bdo.collection('chat_room').find({channer_no: {$in:list}}).toArray()).length
+        const total_count = (await clietDB.collection('chat_room').find({channer_no: {$in:list}}).toArray()).length
         return {success: true, message: '해당 회원의 채팅방 리스트', data: {list:chat_room, total_count}}
     } catch(err){
         throw err
@@ -27,7 +26,6 @@ export const SelectChatRoom = async (body: ISelectChatRoom) => {
 export const CreateChatRoom = async (body: ICreateChatRoom) => {
     try  {
         const chat_member = []
-        const bdo = client.db('just_chat')
         let { member_id, channer_name ,connect_key, invite_member } = body
         if(invite_member.length< 1) return {success: false, message: '채팅방에 초대한 인원이 없습니다'}
         const num = nanoid().toString()
@@ -55,10 +53,21 @@ export const CreateChatRoom = async (body: ICreateChatRoom) => {
             })
         }
 
-        await bdo.collection('chat_room').insertOne(params)
-        await bdo.collection('chat_room_member').insertMany(chat_member)
+        await clietDB.collection('chat_room').insertOne(params)
+        await clietDB.collection('chat_room_member').insertMany(chat_member)
         return {success: true, message: '채팅방 생성 완료!'}
     }catch(err) {
+        throw err;
+    }
+}
+
+export const UpdateChatRoom = async (body: any) => {
+    try {
+        const {channer_no, channer_name ,connect_key} = body;
+        const result = await clietDB.collection('chat_room').updateOne({channer_no}, {$set: {channer_name, connect_key}})
+        if(result.modifiedCount === 1) return {success: true, message:'채팅방 수정 완료'}
+        return {success: false, message: '채팅방이 존재하지 않습니다'}
+    } catch(err) {
         throw err;
     }
 }

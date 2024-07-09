@@ -7,9 +7,9 @@ export default class SocketServer {
         constructor(server: http.Server<typeof http.IncomingMessage, typeof http.ServerResponse>) {
             this.wss = new ws.WebSocketServer({server})
             
-            setInterval(()=> {
-                console.log(`현재 접속중인 인원 ${this.clinets.length}명`)
-            },10000)
+            // setInterval(()=> {
+            //     console.log(`현재 접속중인 인원 ${this.clinets.length}명`)
+            // },10000)
         }
 
         start () {
