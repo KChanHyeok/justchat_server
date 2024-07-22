@@ -18,6 +18,7 @@ export const updateChatRoom = async (req: any, res: Response) => {
         throw err;
     }
 }
+//테스트
 
 export const createChatRoom = async (req:Request, res:Response) => {
     try {
