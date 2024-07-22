@@ -55,7 +55,7 @@ export const CreateChatRoom = async (body: ICreateChatRoom) => {
 
         await clietDB.collection('chat_room').insertOne(params)
         await clietDB.collection('chat_room_member').insertMany(chat_member)
-        return {success: true, message: '채팅방 생성 완료!'}
+        return {success: true, message: '채팅방 생성 완료!', channer_no: num}
     }catch(err) {
         throw err;
     }
