@@ -16,8 +16,10 @@ export const SelectChatRoom = async (body: ISelectChatRoom) => {
             member_id: 1,
             memo: 1,
         }}).limit(Number(per_page)).skip(offset).toArray()
-        const total_count = (await clietDB.collection('chat_room').find({channer_no: {$in:list}}).toArray()).length
-        return {success: true, message: '해당 회원의 채팅방 리스트', data: {list:chat_room, total_count}}
+        const total_count = (await clietDB.collection('chat_room').find({channer_no: {$in:list}}).toArray()).length +1
+
+        const total_page = Math.ceil( Number(total_count) / Number(per_page))
+        return {success: true, message: '해당 회원의 채팅방 리스트', data: {list:chat_room, total_count, total_page}}
     } catch(err){
         throw err
     }
