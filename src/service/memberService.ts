@@ -5,7 +5,7 @@ import {clietDB} from '@util/db';
 
 export const Register = async (body: IRegister) => {
     try {
-        let {member_id, member_pwd, member_name, nick_name, profile_file  } = body
+        let {member_id, member_pwd, member_name, nick_name, profile_key  } = body
         const user = await clietDB.collection('member').findOne({member_id})
         if(user) return {success: false, message: '이미 가입한 회원입니다'}
         member_pwd = encrypt(member_pwd)
@@ -19,7 +19,7 @@ export const Register = async (body: IRegister) => {
             member_name,
             nick_name,
             refresh_token,
-            profile_file,
+            profile_key,
             del_yn: 'n',
             reg_date: new Date()
         }
@@ -51,7 +51,7 @@ export const Login = async (body: ILogin) => {
             reg_date: result.reg_date,
             access_token,
             refresh_token: result.refresh_token,
-            profile_file: result.profile_file,
+            profile_key: result.profile_key,
         } 
         return {success: true, message: '로그인성공', data}
         
@@ -62,10 +62,10 @@ export const Login = async (body: ILogin) => {
 
 export const MemberUpdate = async (body: IUpdateMember) => {
     try {
-        const { member_id, nick_name, profile_file }:IUpdateMember = body
+        const { member_id, nick_name, profile_key }:IUpdateMember = body
         if(!member_id) return {success: false, message: '회원아이디가 입력되지 않았습니다.'}
-        if(!nick_name && !profile_file) return {success: false, message: '변경할 정보가 없습니다.'}
-        const result = await clietDB.collection('member').updateOne({member_id: member_id}, {$set: { nick_name: nick_name, profile_file: profile_file, change_date: new Date()  }})
+        if(!nick_name && !profile_key) return {success: false, message: '변경할 정보가 없습니다.'}
+        const result = await clietDB.collection('member').updateOne({member_id: member_id}, {$set: { nick_name: nick_name, profile_file: profile_key, change_date: new Date()  }})
         if(result.modifiedCount === 1) return {success: true, message: '회원정보 수정완료'}
         return {success: false, message: '회원이 존재하지 않습니다'}
     } catch(err) {

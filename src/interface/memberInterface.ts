@@ -3,7 +3,7 @@ export interface IRegister {
     member_pwd: string | null;
     member_name : string;
     nick_name?: string ;
-    profile_file?: string;
+    profile_key?: string;
 }
 
 export interface ILogin {
@@ -20,5 +20,5 @@ export interface IMember {
 export interface IUpdateMember {
     member_id: string;
     nick_name: string;
-    profile_file: string;
+    profile_key: string;
 }
