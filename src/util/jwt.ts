@@ -26,7 +26,7 @@ export const signAccessToken  =  (member_id: any) => {
 
 export const verifyRefreshToken = (token: string) => {
     try {
-        if(!process.env.JWT_REFRESH_TOKEN_SECRET) {  
+        if(!process.env.JWT_REFRESH_TOKEN_SECRET) { 
             console.log('TOKEN_SECRET null')
             return null} 
         const verify = jwt.verify(token, process.env.JWT_REFRESH_TOKEN_SECRET);

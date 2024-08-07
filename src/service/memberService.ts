@@ -90,7 +90,7 @@ export const MemberList = async (body: IMember) => {
         const member = await clietDB.collection('member').find({member_id: {$regex: keyword}}, {projection:{
             _id:0,
             member_id: 1,
-            profile_file:1,
+            profile_key:1,
             nick_name: 1,
             member_name: 1,
         }}).limit(Number(per_page)).skip(offset).toArray()
