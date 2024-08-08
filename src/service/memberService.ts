@@ -65,7 +65,7 @@ export const MemberUpdate = async (body: IUpdateMember) => {
         const { member_id, nick_name, profile_key }:IUpdateMember = body
         if(!member_id) return {success: false, message: '회원아이디가 입력되지 않았습니다.'}
         if(!nick_name && !profile_key) return {success: false, message: '변경할 정보가 없습니다.'}
-        const result = await clietDB.collection('member').updateOne({member_id: member_id}, {$set: { nick_name: nick_name, profile_file: profile_key, change_date: new Date()  }})
+        const result = await clietDB.collection('member').updateOne({member_id: member_id}, {$set: { nick_name: nick_name, profile_key: profile_key, change_date: new Date()  }})
         if(result.modifiedCount === 1) return {success: true, message: '회원정보 수정완료'}
         return {success: false, message: '회원이 존재하지 않습니다'}
     } catch(err) {

@@ -47,7 +47,7 @@ const options = {
                                     "type": "string",
                                     "example": "kchan"
                                 },
-                                "profile_file": {
+                                "profile_key": {
                                    "type": "string",
                                    "example": "key"
                                 }
