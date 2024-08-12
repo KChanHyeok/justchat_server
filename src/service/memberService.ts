@@ -100,15 +100,16 @@ export const MemberList = async (body: IMember) => {
             member_name: 1,
         }}).limit(Number(per_page)).skip(offset).toArray()
         const total_count = (await clietDB.collection('member').find({member_id: {$regex: keyword}}).toArray()).length
-        for (let i=0; i<member.length; i++) {
+        const profileUrlPromises = member.map(async (m) => {
             try {
-                const url = await getDownloadURL(ref(storage, member[i].profile_key))
-                member[i].profile_url = url
-            }catch(err) {
-                member[i].profile_url = ''
+                const url = await getDownloadURL(ref(storage, m.profile_key));
+                return { ...m, profile_url: url };
+            } catch {
+                return { ...m, profile_url: '' };
             }
-        }
-        return {success: true, message: '회원리스트', data:{ list: member, total_count }}
+        });
+        const memberWithUrls = await Promise.all(profileUrlPromises)
+        return {success: true, message: '회원리스트', data:{ list: memberWithUrls, total_count }}
     } catch(err) {
         throw err;
     }
