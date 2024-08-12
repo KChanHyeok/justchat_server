@@ -16,6 +16,7 @@ export default class SocketServer {
             this.wss.on('connection', (ws: WebSocket, req: any) => {
                 const {member_id, channer_no} = req.headers
                 this.clinets.push({ws, member_id, channer_no})
+                console.log(`ID: ${member_id} 접속`)
                 // this.clinets.push(ws.terminate())
                 ws.on('message', (message: any) => {
                     this.clinets.map(((client:any)=>{
@@ -27,7 +28,7 @@ export default class SocketServer {
                             }else {
                                 // msg.member_id = req.headers.cookie.member_id
                             }
-                            console.log(JSON.stringify(msg))
+                            console.log(`${member_id}: ${JSON.stringify(msg)}`)
                             client.ws.send(JSON.stringify(msg), (err:any)=> err &&console.log(err))
                         }
                     }))

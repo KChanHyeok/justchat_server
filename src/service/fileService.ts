@@ -1,7 +1,7 @@
 import { ref, getStorage, uploadBytes, getDownloadURL} from 'firebase/storage'
 import { storage } from '@util/firebase'
 
-export class fileService {
+export class FileService {
     async FileUpload (file: any) {
         try {
             const fileName = file.originalname
@@ -17,10 +17,10 @@ export class fileService {
         }
     }
     
-    async FileDownload (body: any) {
+     FileDownload (body: any) {
         try {
             const {key} = body
-            const url = await getDownloadURL(ref(storage, key))
+            const url = getDownloadURL(ref(storage, key))
     
             return {success: true, message: '파일 uri생성완료', url}
         }catch(err) {

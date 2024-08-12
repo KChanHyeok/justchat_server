@@ -3,13 +3,13 @@ import multer from 'multer';
 import { register, login, memberList, memberUpdate, memberDelete } from '@controller/memberController';
 import { createChatRoom, selectChatRoom, updateChatRoom } from '@controller/chatRoomController';
 import { fileController } from '@controller/fileController';
-import { fileService } from '@service/fileService';
+import { FileService } from '@service/fileService';
 
 const upload = multer()
 
 const router = express.Router();
 
-const files = new fileController(new fileService);
+const files = new fileController(new FileService);
 
 router.get('/chat/list', selectChatRoom)
 router.get('/member/list', memberList)

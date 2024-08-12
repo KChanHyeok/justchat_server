@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { fileService } from "@service/fileService";
+import { FileService } from "@service/fileService";
 
 export class fileController {
-    constructor(private readonly fileService: fileService){}
+    constructor(private readonly fileService: FileService){}
     
     fileUpload = async (req: any, res: Response) => {
         try { 

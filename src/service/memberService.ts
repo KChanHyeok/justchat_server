@@ -2,6 +2,11 @@ import { signAccessToken, signRefreshToken, verifyRefreshToken } from '@/util/jw
 import { ILogin, IMember, IRegister, IUpdateMember } from '@interfaces/memberInterface';
 import { decrypt, encrypt } from '@util/crypto';
 import {clietDB} from '@util/db';
+import { FileService } from './fileService';
+import { getDownloadURL, ref } from 'firebase/storage';
+import { storage } from '@/util/firebase';
+
+const fileservice: any = new FileService
 
 export const Register = async (body: IRegister) => {
     try {
@@ -95,6 +100,14 @@ export const MemberList = async (body: IMember) => {
             member_name: 1,
         }}).limit(Number(per_page)).skip(offset).toArray()
         const total_count = (await clietDB.collection('member').find({member_id: {$regex: keyword}}).toArray()).length
+        for (let i=0; i<member.length; i++) {
+            try {
+                const url = await getDownloadURL(ref(storage, member[i].profile_key))
+                member[i].profile_url = url
+            }catch(err) {
+                member[i].profile_url = ''
+            }
+        }
         return {success: true, message: '회원리스트', data:{ list: member, total_count }}
     } catch(err) {
         throw err;
